@@ -297,7 +297,7 @@ function Workouts({ apiUrl }) {
                 </div>
                 <h6>Exercises:</h6>
                 <ul className="list-unstyled">
-                  {workout.exercises && workout.exercises.map((exercise, idx) => (
+                  {workout.exercises && Array.isArray(workout.exercises) && workout.exercises.map((exercise, idx) => (
                     <li key={idx}>
                       • {exercise.name} 
                       {exercise.reps && ` - ${exercise.reps} reps`}

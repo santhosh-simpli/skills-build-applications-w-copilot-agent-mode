@@ -50,6 +50,7 @@ class LeaderboardSerializer(serializers.ModelSerializer):
 
 class WorkoutSerializer(serializers.ModelSerializer):
     id = serializers.SerializerMethodField()
+    exercises = serializers.SerializerMethodField()
     
     class Meta:
         model = Workout
@@ -57,3 +58,13 @@ class WorkoutSerializer(serializers.ModelSerializer):
     
     def get_id(self, obj):
         return str(obj._id)
+    
+    def get_exercises(self, obj):
+        # Convert exercises to proper list format
+        if isinstance(obj.exercises, str):
+            import json
+            try:
+                return json.loads(obj.exercises)
+            except:
+                return []
+        return obj.exercises if obj.exercises else []
